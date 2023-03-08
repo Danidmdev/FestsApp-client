@@ -4,8 +4,6 @@ import { Link, useParams } from "react-router-dom"
 import festsServices from "../../services/fests.services"
 
 
-
-
 const FestDetailsPage = () => {
 
     const [fest, setFest] = useState({})
@@ -29,6 +27,7 @@ const FestDetailsPage = () => {
             <h1 className="mb-4"> {`${fest.title}`} details</h1>
             <hr />
             <p>{fest.description}</p>
+
 
             <Link to="/fests">
                 <Button as="figure" variant="dark">Back to All Fests</Button>
