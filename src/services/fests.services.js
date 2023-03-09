@@ -6,13 +6,24 @@ class FestServices {
         this.api = axios.create({
             baseURL: `${process.env.REACT_APP_API_URL}/fests`
         })
+
+        this.api.interceptors.request.use((config) => {
+
+            const storedToken = localStorage.getItem("authToken");
+
+            if (storedToken) {
+                config.headers = { Authorization: `Bearer ${storedToken}` }
+            }
+
+            return config
+        })
     }
 
     getAllFests() {
         return this.api.get('/getAllFests')
     }
 
-    details(fest_id) {
+    getDetails(fest_id) {
         return this.api.get(`/details/${fest_id}`)
     }
 
@@ -20,11 +31,11 @@ class FestServices {
         return this.api.post('/newFest', festData)
     }
 
-    edit(fest_id) {
-        return this.api.put(`/edit/${fest_id}`)
+    edit(fest_id, festData) {
+        return this.api.put(`/edit/${fest_id}`, festData)
     }
 
-    delete(fest_id) {
+    deleteFest(fest_id) {
         return this.api.delete(`/delete/${fest_id}`)
     }
 

@@ -1,12 +1,16 @@
 import { Route, Routes } from "react-router"
 
-// import LoginForm from "../components/LoginForm/LoginForm"
 import HomePage from "../pages/HomePage/HomePage"
 import LoginPage from "../pages/LoginPage/LoginPage"
 import SignupPage from "../pages/SignupPage/SignupPage"
 import FestsPage from "../pages/FestsPage/FestsPage"
 import FestDetailsPage from "../pages/FestDetailsPage/FestDetailsPage"
 import NewFestPage from "../pages/NewFestPage/NewFestPage"
+import EditFestPage from "../pages/EditFestPage/EditFestPage"
+import UsersPage from "../pages/UsersPage/UsersPage"
+import ProfilePage from "../pages/ProfilePage/ProfilePage"
+import PrivateRoute from "./PrivateRoute"
+// import CalendarPage from "../pages/CalendarPage/CalendarPage"
 
 
 const AppRoutes = () => {
@@ -20,12 +24,17 @@ const AppRoutes = () => {
             <Route path="/map" element={<p>Map</p>} />
             <Route path="/log-in" element={<LoginPage />} />
             <Route path="/sign-up" element={<SignupPage />} />
-            <Route path="/create" element={<NewFestPage />} />
-            <Route path="/edit-fest/:id" element={<p>Edit</p>} />
-            <Route path="/profile" element={<p>Profile</p>} />
+
+            <Route element={<PrivateRoute />}>
+                <Route path="/edit-fest/:fest_id" element={<EditFestPage />} />
+                <Route path="/create" element={<NewFestPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/allUsers" element={<UsersPage />} />
+            </Route>
+
             <Route path="*" element={<p>Error 404</p>} />
 
-        </Routes>
+        </Routes >
     )
 }
 

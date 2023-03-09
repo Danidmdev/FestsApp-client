@@ -1,14 +1,11 @@
-import { useContext, useState } from "react";
-import { Button, Form, Row, Col } from "react-bootstrap";
-import { MessageContext } from "../../contexts/message.context";
-import uploadServices from "../../services/upload.services";
-import FormError from "../FormError/FormError";
+import { useEffect, useState } from "react"
+import { Button, Form, Row, Col } from "react-bootstrap"
 import festsServices from './../../services/fests.services'
+import uploadServices from "../../services/upload.services"
+import { useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
-
-
-
-const NewFestForm = ({ fireFinalActions }) => {
+const EditFestForm = () => {
 
     const [festData, setFestData] = useState({
         title: '',
@@ -21,28 +18,45 @@ const NewFestForm = ({ fireFinalActions }) => {
 
     })
 
-    const { emitMessage } = useContext(MessageContext)
-
     const [loadingImage, setLoadingImage] = useState(false)
-    const [errors, setErrors] = useState([])
+
+    const { fest_id } = useParams()
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        console.log(festData)
+    }, [festData])
 
     const handleInputChange = e => {
         const { value, name } = e.target
         setFestData({ ...festData, [name]: value })
     }
 
+    useEffect(() => {
+        details(fest_id)
+    }, [])
+
+    const details = (fest_id) => {
+        festsServices
+            .getDetails(fest_id)
+            .then(({ data }) => {
+                const { title, description, price, genre, startDate, endDate } = data
+                setFestData({ title, description, price, genre, imageUrl: '', startDate, endDate })
+            })
+            .catch(err => console.error(err))
+    }
+
     const handleFestSubmit = e => {
         e.preventDefault()
 
         festsServices
-            .newFest(festData)
+            .edit(fest_id, festData)
             .then(({ data }) => {
-                emitMessage('Fest created')
-                fireFinalActions()
+                navigate('/fests')
+
             })
-            .catch(err => {
-                setErrors(err.response.data.errorMessages)
-            })
+            .catch(err => console.log(err))
     }
 
     const handleFileUpload = e => {
@@ -75,6 +89,7 @@ const NewFestForm = ({ fireFinalActions }) => {
                     <Form.Label>Genre</Form.Label>
                     <Form.Control type="text" name="genre" value={festData.genre} onChange={handleInputChange} />
                 </Form.Group>
+
                 <Form.Group as={Col} controlId="price">
                     <Form.Label>Price</Form.Label>
                     <Form.Control type="text" name="price" value={festData.price} onChange={handleInputChange} />
@@ -84,6 +99,7 @@ const NewFestForm = ({ fireFinalActions }) => {
                     <Form.Label>Imagen (URL)</Form.Label>
                     <Form.Control type="file" onChange={handleFileUpload} />
                 </Form.Group>
+
             </Row>
             <Row>
                 <Form.Group as={Col} controlId="startDate">
@@ -102,11 +118,13 @@ const NewFestForm = ({ fireFinalActions }) => {
                 <Form.Control type="text" name="description" value={festData.description} onChange={handleInputChange} />
             </Form.Group>
 
-            {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
-
-            <Button variant="dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Loading Image' : 'Create New Fest'}</Button>
+            <Button variant="dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Loading Image' : 'Edit Fest'}</Button>
         </Form>
     );
 }
 
-export default NewFestForm
+export default EditFestForm
+
+
+
+

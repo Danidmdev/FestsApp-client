@@ -3,6 +3,7 @@ import { Form, Button } from "react-bootstrap"
 import { AuthContext } from "../../contexts/auth.context"
 import authService from "../../services/auth.services"
 import { useNavigate } from 'react-router-dom'
+import { MessageContext } from "../../contexts/message.context"
 
 const LoginForm = () => {
 
@@ -13,6 +14,7 @@ const LoginForm = () => {
 
     const { authenticateUser, user } = useContext(AuthContext)
     const navigate = useNavigate()
+    const { emitMessage } = useContext(MessageContext)
 
     const handleInputChange = e => {
         const { value, name } = e.target
@@ -28,6 +30,7 @@ const LoginForm = () => {
             .then(({ data }) => {
                 localStorage.setItem('authToken', data.authToken)
                 authenticateUser()
+                emitMessage('Welcome back!!')
                 navigate('/fests')
             })
             .catch(err => console.log(err))

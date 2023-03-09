@@ -28,6 +28,9 @@ const Navigation = () => {
                         <Link to="/map">
                             <Nav.Link as="span">Map</Nav.Link>
                         </Link>
+                        <Link to="/allUsers">
+                            <Nav.Link as="span">All Users</Nav.Link>
+                        </Link>
                         <NavDropdown
                             id="nav-dropdown-dark-example"
                             title="User"
@@ -44,6 +47,11 @@ const Navigation = () => {
                                 user
                                     ?
                                     <>
+                                        <NavDropdown.Item>
+                                            <Link to="/profile">
+                                                <Nav.Link as="span">Profile</Nav.Link>
+                                            </Link>
+                                        </NavDropdown.Item>
                                         <NavDropdown.Item>
                                             <Nav.Link as="span" onClick={logout}>Log out</Nav.Link>
                                         </NavDropdown.Item>

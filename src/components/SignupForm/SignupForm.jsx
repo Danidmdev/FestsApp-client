@@ -1,8 +1,9 @@
 import { useState, useContext } from "react"
-import { Form, Button } from "react-bootstrap"
+import { Form, Button, Col } from "react-bootstrap"
 import authService from "../../services/auth.services"
 import { useNavigate } from 'react-router-dom'
-import usersService from "../../services/users.services"
+import uploadServices from "../../services/upload.services"
+import { MessageContext } from "../../contexts/message.context";
 
 
 const SignupForm = () => {
@@ -14,6 +15,10 @@ const SignupForm = () => {
         avatar: ''
     })
 
+    const [loadingImage, setLoadingImage] = useState(false)
+
+    const { emitMessage } = useContext(MessageContext)
+
     const navigate = useNavigate()
 
     const handleInputChange = e => {
@@ -21,27 +26,39 @@ const SignupForm = () => {
         setSignupData({ ...signupData, [name]: value })
     }
 
-    const handleFileUpload = (e) => {
-
-        const uploadData = new FormData();
-        uploadData.append("avatar", e.target.files[0]);
-
-        usersService
-            .uploadImage(uploadData)
-            .then(response => { setSignupData(response.fileUrl) })
-            .catch(err => console.log("Error while uploading the file: ", err));
-    };
-
     const handleFormSubmit = e => {
 
         e.preventDefault()
 
         authService
             .signup(signupData)
-            .then(() => navigate('/log-in'))
+            .then(() => {
+                navigate('/log-in')
+                emitMessage('User created')
+            })
             .catch(err => console.log(err))
     }
 
+    const handleFileUpload = e => {
+
+        setLoadingImage(true)
+
+        const formData = new FormData()
+        formData.append('imageData', e.target.files[0])
+
+        uploadServices
+            .uploadimage(formData)
+            .then(res => {
+                setSignupData({ ...signupData, avatar: res.data.cloudinary_url })
+                setLoadingImage(false)
+
+
+            })
+            .catch(err => {
+                console.log(err)
+                setLoadingImage(false)
+            })
+    }
 
 
     return (
@@ -63,13 +80,13 @@ const SignupForm = () => {
                 <Form.Control type="password" value={signupData.password} onChange={handleInputChange} name="password" />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="avatar">
-                <Form.Label>Avatar</Form.Label>
-                <Form.Control type="file" onChange={(e) => handleFileUpload(e)} name="avatar" />
+            <Form.Group as={Col} controlId="avatar">
+                <Form.Label>Avatar (URL)</Form.Label>
+                <Form.Control type="file" onChange={handleFileUpload} />
             </Form.Group>
 
-            <div className="d-grid">
-                <Button variant="dark" type="submit">Sign up</Button>
+            <div className="d-grid mt-4">
+                <Button variant="dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Loading Image' : 'Sign up'}</Button>
             </div>
 
         </Form>

@@ -4,11 +4,13 @@ import NewFestForm from "../../components/NewFestForm/NewFestForm"
 import { AuthContext } from "../../contexts/auth.context"
 import festsServices from "../../services/fests.services"
 import FestsList from "../../components/FestList/FestList"
+import Loader from "../../components/Loader/Loader"
 
 const FestsPage = () => {
 
     const [showModal, setShowModal] = useState(false)
     const [fests, setFests] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
 
 
     const { user } = useContext(AuthContext)
@@ -22,6 +24,7 @@ const FestsPage = () => {
             .getAllFests()
             .then(({ data }) => {
                 setFests(data)
+                setIsLoading(false)
 
             })
             .catch(err => console.log(err))
@@ -37,13 +40,19 @@ const FestsPage = () => {
 
         <>
             <Container>
+                {
+                    isLoading
+                        ?
+                        <Loader />
+                        :
 
-                <>
-                    <h1>Fest List (provisional esto no es un lab!!!!)</h1>
-                    {user && <Button onClick={() => setShowModal(true)} variant="dark" size='sm'>Create new Fest</Button>}
-                    <hr />
-                    <FestsList fests={fests} />
-                </>
+                        <>
+                            <h1>Fest List (provisional esto no es un lab!!!!)</h1>
+                            {user && <Button onClick={() => setShowModal(true)} variant="dark" size='sm'>Create new Fest</Button>}
+                            <hr />
+                            <FestsList fests={fests} />
+                        </>
+                }
 
             </Container>
 

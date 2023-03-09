@@ -6,6 +6,17 @@ class UsersService {
         this.api = axios.create({
             baseURL: `${process.env.REACT_APP_API_URL}/users`
         })
+
+        this.api.interceptors.request.use((config) => {
+
+            const storedToken = localStorage.getItem("authToken");
+
+            if (storedToken) {
+                config.headers = { Authorization: `Bearer ${storedToken}` }
+            }
+
+            return config
+        })
     }
 
     getAllUsers() {
@@ -22,10 +33,6 @@ class UsersService {
 
     deletProfile(users_id) {
         return this.api.delete(`/delete-profile/${users_id}`)
-    }
-
-    uploadImage(file) {
-        return this.api.post('/upload', file)
     }
 
 

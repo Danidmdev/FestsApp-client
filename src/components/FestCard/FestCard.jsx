@@ -4,16 +4,7 @@ import './FestCard.css'
 
 
 
-const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-};
-
 const FestCard = ({ imageUrl, title, _id, description, genre, startDate, endDate, price }) => {
-
-
-    const introDate = formatDate(startDate);
-    const finishDate = formatDate(endDate);
 
 
     return (
@@ -40,7 +31,7 @@ const FestCard = ({ imageUrl, title, _id, description, genre, startDate, endDate
                     <Accordion.Item eventKey="2">
                         <Accordion.Header>Date</Accordion.Header>
                         <Accordion.Body>
-                            {introDate} | {finishDate}
+                            {new Date(startDate).toLocaleDateString()} | {new Date(endDate).toLocaleDateString()}
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="3">
