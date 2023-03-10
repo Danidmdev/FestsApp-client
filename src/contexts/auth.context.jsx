@@ -23,7 +23,7 @@ function AuthProviderWrapper(props) {
                     setIsLoading(false)
                 })
                 .catch(err => logout())
-        }
+        } else logout()
     }
 
     const logout = () => {

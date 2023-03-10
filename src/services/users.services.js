@@ -23,16 +23,16 @@ class UsersService {
         return this.api.get('/getAllUsers')
     }
 
-    profile(users_id) {
-        return this.api.get(`/profile/${users_id}`)
+    getProfile(user_id) {
+        return this.api.get(`/profile/${user_id}`)
     }
 
-    editProfile(users_id) {
-        return this.api.put(`/edit-profile/${users_id}`)
+    editProfile(user_id, usersData) {
+        return this.api.put(`/edit-profile/${user_id}`, usersData)
     }
 
-    deletProfile(users_id) {
-        return this.api.delete(`/delete-profile/${users_id}`)
+    deletProfile(user_id) {
+        return this.api.delete(`/delete-profile/${user_id}`)
     }
 
 

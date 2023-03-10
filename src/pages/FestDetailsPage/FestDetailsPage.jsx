@@ -5,6 +5,7 @@ import festsServices from "../../services/fests.services"
 import { useNavigate } from "react-router-dom"
 import { AuthContext } from './../../contexts/auth.context'
 import './FestDetailsPage.css'
+import FestsList from "../../components/FestList/FestList"
 
 
 const FestDetailsPage = () => {
@@ -16,6 +17,8 @@ const FestDetailsPage = () => {
     const navigate = useNavigate()
 
     const { user } = useContext(AuthContext)
+
+
 
     useEffect(() => {
         festsServices
@@ -32,9 +35,7 @@ const FestDetailsPage = () => {
             .deleteFest(fest_id)
             .then(() => {
                 navigate('/fests')
-
             })
-            .then(({ data }) => setFest(data))
             .catch(err => console.log(err))
     }
 
@@ -53,6 +54,7 @@ const FestDetailsPage = () => {
                     <h5>Genre: {fest.genre}</h5>
                     <h5>Price: {fest.price}</h5>
                     <p>{fest.description}</p>
+
                 </Col>
             </Row >
 

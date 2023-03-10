@@ -5,11 +5,13 @@ import { AuthContext } from "../../contexts/auth.context"
 import festsServices from "../../services/fests.services"
 import FestsList from "../../components/FestList/FestList"
 import Loader from "../../components/Loader/Loader"
+import SearchBar from "../../components/SearchBar/SearchBar"
 
 const FestsPage = () => {
 
     const [showModal, setShowModal] = useState(false)
     const [fests, setFests] = useState([])
+    // const [festsBackup, setProductsBackup] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
 
@@ -25,10 +27,19 @@ const FestsPage = () => {
             .then(({ data }) => {
                 setFests(data)
                 setIsLoading(false)
-
             })
             .catch(err => console.log(err))
     }
+
+    // const filterFests = filter => {
+    //     if (filter === "") {
+    //         setFests(festsBackup)
+
+    //     } else {
+    //         const filteredFests = festsBackup.filter(elm => elm.name.startsWith(filter))
+    //         setFests(filteredFests)
+    //     }
+    // }
 
     const fireFinalActions = () => {
         setShowModal(false)
@@ -48,6 +59,7 @@ const FestsPage = () => {
 
                         <>
                             <h1>Fest List (provisional esto no es un lab!!!!)</h1>
+                            {/* <SearchBar filterFests={filterFests} /> */}
                             {user && <Button onClick={() => setShowModal(true)} variant="dark" size='sm'>Create new Fest</Button>}
                             <hr />
                             <FestsList fests={fests} />

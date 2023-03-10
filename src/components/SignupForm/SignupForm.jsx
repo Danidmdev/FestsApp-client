@@ -3,8 +3,8 @@ import { Form, Button, Col } from "react-bootstrap"
 import authService from "../../services/auth.services"
 import { useNavigate } from 'react-router-dom'
 import uploadServices from "../../services/upload.services"
-import { MessageContext } from "../../contexts/message.context";
-
+import { MessageContext } from "../../contexts/message.context"
+import FormError from "../FormError/FormError"
 
 const SignupForm = () => {
 
@@ -21,6 +21,8 @@ const SignupForm = () => {
 
     const navigate = useNavigate()
 
+    const [errors, setErrors] = useState([])
+
     const handleInputChange = e => {
         const { value, name } = e.target
         setSignupData({ ...signupData, [name]: value })
@@ -36,7 +38,9 @@ const SignupForm = () => {
                 navigate('/log-in')
                 emitMessage('User created')
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                setErrors(err.response.data.errorMessages)
+            })
     }
 
     const handleFileUpload = e => {
@@ -84,6 +88,8 @@ const SignupForm = () => {
                 <Form.Label>Avatar (URL)</Form.Label>
                 <Form.Control type="file" onChange={handleFileUpload} />
             </Form.Group>
+
+            {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
 
             <div className="d-grid mt-4">
                 <Button variant="dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Loading Image' : 'Sign up'}</Button>

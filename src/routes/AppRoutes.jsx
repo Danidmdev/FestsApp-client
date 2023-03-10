@@ -10,6 +10,7 @@ import EditFestPage from "../pages/EditFestPage/EditFestPage"
 import UsersPage from "../pages/UsersPage/UsersPage"
 import ProfilePage from "../pages/ProfilePage/ProfilePage"
 import PrivateRoute from "./PrivateRoute"
+import EditUserPage from "../pages/EditUserPage/EditUserPage"
 // import CalendarPage from "../pages/CalendarPage/CalendarPage"
 
 
@@ -27,8 +28,9 @@ const AppRoutes = () => {
 
             <Route element={<PrivateRoute />}>
                 <Route path="/edit-fest/:fest_id" element={<EditFestPage />} />
+                <Route path="/edit-user/:user_id" element={<EditUserPage />} />
                 <Route path="/create" element={<NewFestPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/profile/:user_id" element={<ProfilePage />} />
                 <Route path="/allUsers" element={<UsersPage />} />
             </Route>
 

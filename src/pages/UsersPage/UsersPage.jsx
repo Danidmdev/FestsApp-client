@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react"
 import { Container, Modal, Button } from "react-bootstrap"
-import { AuthContext } from "../../contexts/auth.context"
 import usersServices from "../../services/users.services"
 import UsersList from "../../components/UsersList/UsersList"
 
@@ -9,8 +8,6 @@ const UsersPage = () => {
 
     const [users, setUsers] = useState([])
 
-
-    const { user } = useContext(AuthContext)
 
     useEffect(() => {
         loadUsers()

@@ -37,18 +37,12 @@ const Navigation = () => {
                             menuVariant="dark"
                             className='align-end'
                         >
-                            <NavDropdown.Item>
-                                <Link to="/profile">
-                                    <Nav.Link as="span">Profile</Nav.Link>
-                                </Link>
-                            </NavDropdown.Item>
-                            <NavDropdown.Divider />
                             {
                                 user
                                     ?
                                     <>
                                         <NavDropdown.Item>
-                                            <Link to="/profile">
+                                            <Link to={`/profile/${user._id}`}>
                                                 <Nav.Link as="span">Profile</Nav.Link>
                                             </Link>
                                         </NavDropdown.Item>
@@ -75,7 +69,7 @@ const Navigation = () => {
                     {user && <Navbar.Text>Bienvenid@, {user.username} | </Navbar.Text>}
                 </Navbar.Collapse>
             </Container>
-        </Navbar>
+        </Navbar >
     )
 }
 
