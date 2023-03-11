@@ -2,3 +2,19 @@ a {
   text-decoration: none;
   color: inherit
 }
+
+.content-container {
+  margin-left: 20px;
+  /* Ajusta este valor según el ancho de la navbar vertical */
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  left: 80px;
+  width: calc(100% - 200px);
+  height: 100%;
+  transition: margin-left 0.5s;
+}
+
+.content-container.shifted {
+  margin-left: 80px;
+}

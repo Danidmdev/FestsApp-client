@@ -3,13 +3,12 @@ import { Container, Button, Row, Col } from "react-bootstrap"
 import { Link, useParams } from "react-router-dom"
 import festsServices from "../../services/fests.services"
 import { useNavigate } from "react-router-dom"
-import { AuthContext } from './../../contexts/auth.context'
-import './FestDetailsPage.css'
-import FestDetails from "../../components/FestsDetails/FestsDetails"
+import { AuthContext } from '../../contexts/auth.context'
 
 
 
-const FestDetailsPage = () => {
+
+const FestDetails = () => {
 
     const [fest, setFest] = useState({})
 
@@ -44,9 +43,7 @@ const FestDetailsPage = () => {
 
         <Container>
 
-            <FestDetails />
-
-            {/* <h1 className="mb-4"> {fest.title} details</h1>
+            <h1 className="mb-4"> {fest.title} details</h1>
             <hr />
             <Row>
                 <Col md={6} className="mb-5">
@@ -69,10 +66,10 @@ const FestDetailsPage = () => {
             </Link>
             <Link>
                 {user._id === fest.owner && <Button as="figure" variant="danger" onClick={() => deleteFest(fest_id)}>Eliminar</Button>}
-            </Link> */}
+            </Link>
 
         </Container >
     )
 }
 
-export default FestDetailsPage
+export default FestDetails

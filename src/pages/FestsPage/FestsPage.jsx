@@ -7,6 +7,8 @@ import FestsList from "../../components/FestList/FestList"
 import Loader from "../../components/Loader/Loader"
 import SearchBar from "../../components/SearchBar/SearchBar"
 
+
+
 const FestsPage = () => {
 
     const [showModal, setShowModal] = useState(false)
@@ -69,12 +71,14 @@ const FestsPage = () => {
 
             </Container>
 
+
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton> <Modal.Title>New Fest</Modal.Title></Modal.Header>
                 <Modal.Body>
                     <NewFestForm fireFinalActions={fireFinalActions} />
                 </Modal.Body>
             </Modal>
+
 
         </>
     )
