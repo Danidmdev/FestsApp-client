@@ -73,13 +73,22 @@ const NewFestForm = ({ fireFinalActions }) => {
             <Row className="mb-3">
                 <Form.Group as={Col} controlId="genre">
                     <Form.Label>Genre</Form.Label>
-                    <Form.Control type="text" name="genre" value={festData.genre} onChange={handleInputChange} />
+                    <Form.Select name="genre" value={festData.genre} onChange={handleInputChange}>
+                        <option>Select </option>
+                        <option value="Electro">Electro</option>
+                        <option value="Reggae">Reggae</option>
+                        <option value="Alternative">Alternative</option>
+                        <option value="Rock">Rock</option>
+                        <option value="Classic">Classic</option>
+                        <option value="Mix">Mix</option>
+                        <option value="Jazz">Jazz</option>
+                        <option value="Other">Other</option>
+                    </Form.Select>
                 </Form.Group>
                 <Form.Group as={Col} controlId="price">
                     <Form.Label>Price</Form.Label>
                     <Form.Control type="text" name="price" value={festData.price} onChange={handleInputChange} />
                 </Form.Group>
-
                 <Form.Group as={Col} controlId="image">
                     <Form.Label>Imagen (URL)</Form.Label>
                     <Form.Control type="file" onChange={handleFileUpload} />

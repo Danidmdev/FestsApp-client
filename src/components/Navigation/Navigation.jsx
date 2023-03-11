@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth.context'
+import './Navigation.css'
 
 const Navigation = () => {
 
@@ -31,42 +32,37 @@ const Navigation = () => {
                         <Link to="/allUsers">
                             <Nav.Link as="span">All Users</Nav.Link>
                         </Link>
-                        <NavDropdown
-                            id="nav-dropdown-dark-example"
-                            title="User"
-                            menuVariant="dark"
-                            className='align-end'
-                        >
-                            {
-                                user
-                                    ?
-                                    <>
-                                        <NavDropdown.Item>
-                                            <Link to={`/profile/${user._id}`}>
-                                                <Nav.Link as="span">Profile</Nav.Link>
-                                            </Link>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <Nav.Link as="span" onClick={logout}>Log out</Nav.Link>
-                                        </NavDropdown.Item>
-                                    </>
-                                    :
-                                    <>
-                                        <NavDropdown.Item>
-                                            <Link to="/log-in">
-                                                <Nav.Link as="span">Log in</Nav.Link>
-                                            </Link>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <Link to="/sign-up">
-                                                <Nav.Link as="span">Sign up</Nav.Link>
-                                            </Link>
-                                        </NavDropdown.Item>
-                                    </>
-                            }
-                        </NavDropdown>
+
+                        {
+                            user
+                                ?
+                                <>
+
+                                    <Link to={`/profile/${user._id}`}>
+                                        <Nav.Link as="span">Profile</Nav.Link>
+                                    </Link>
+                                    <Link>
+                                        <Nav.Link as="span" onClick={logout}>Log out</Nav.Link>
+                                    </Link>
+                                </>
+                                :
+                                <>
+
+                                    <Link to="/log-in">
+                                        <Nav.Link as="span">Log in</Nav.Link>
+                                    </Link>
+
+                                    <Link to="/sign-up">
+                                        <Nav.Link as="span">Sign up</Nav.Link>
+                                    </Link>
+
+                                </>
+                        }
+
                     </Nav>
-                    {user && <Navbar.Text>Bienvenid@, {user.username} | </Navbar.Text>}
+                    <Link to={`/profile/${user?._id}`} >
+                        {user && <Navbar.Text> <img className='avatarImg' src={user.avatar} alt="" /></Navbar.Text>}
+                    </Link>
                 </Navbar.Collapse>
             </Container>
         </Navbar >

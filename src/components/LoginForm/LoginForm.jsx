@@ -17,7 +17,7 @@ const LoginForm = () => {
     const { authenticateUser, user } = useContext(AuthContext)
     const navigate = useNavigate()
     const { emitMessage } = useContext(MessageContext)
-    const [errors, setErrors] = useState([])
+    const [error, setError] = useState('')
 
 
     const handleInputChange = e => {
@@ -37,7 +37,10 @@ const LoginForm = () => {
                 emitMessage('Welcome back!!')
                 navigate('/fests')
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                setError(err.response.data.message)
+                console.log(err)
+            })
     }
 
     return (
@@ -54,7 +57,7 @@ const LoginForm = () => {
                 <Form.Control type="password" value={loginData.password} onChange={handleInputChange} name="password" />
             </Form.Group>
 
-            {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
+            {error.length > 0 && <FormError><p>{error}</p></FormError>}
 
             <div className="d-grid">
                 <Button variant="dark" type="submit">Acceder</Button>

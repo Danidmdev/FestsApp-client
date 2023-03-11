@@ -27,6 +27,10 @@ class FestServices {
         return this.api.get(`/details/${fest_id}`)
     }
 
+    getByOwner(owner_id) {
+        return this.api.get(`/getFestByOwner/${owner_id}`)
+    }
+
     newFest(festData) {
         return this.api.post('/newFest', festData)
     }

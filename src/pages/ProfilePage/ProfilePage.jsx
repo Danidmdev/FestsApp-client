@@ -3,27 +3,50 @@ import { Col, Container, Row, Button } from "react-bootstrap"
 import { AuthContext } from './../../contexts/auth.context'
 import { Link, useParams } from "react-router-dom"
 import usersServices from "../../services/users.services"
+import festsServices from "../../services/fests.services"
 import { useNavigate } from "react-router-dom"
+import FestUserCard from "../../components/FestUserCard/FestUserCard"
 
 const ProfilePage = () => {
 
     const { logout } = useContext(AuthContext)
 
     const [users, setUsers] = useState({})
+    const [myFests, setMyFests] = useState([])
 
     const navigate = useNavigate()
 
     const { user_id } = useParams()
-    console.log(user_id)
+
 
     useEffect(() => {
+        loadData()
+    }, [])
+
+    const loadData = () => {
         usersServices
             .getProfile(user_id)
             .then(({ data }) => {
                 setUsers(data)
             })
             .catch(err => console.error(err))
-    }, [])
+
+        festsServices
+            .getByOwner(user_id)
+            .then(({ data }) => {
+                setMyFests(data)
+            })
+            .catch(err => console.log(err))
+    }
+
+    const deleteUserFest = (fest_id) => {
+        festsServices
+            .deleteFest(fest_id)
+            .then(() => {
+                loadData() // Actualiza la lista de festivales después de la eliminación
+            })
+            .catch(err => console.log(err))
+    }
 
     const deleteUser = (user_id) => {
         usersServices
@@ -36,14 +59,13 @@ const ProfilePage = () => {
 
     return (
         <Container>
-            <h1 className="mt-3 mb-5">Hi! {users.username}</h1>
-            <Row>
-                <Col md={6} className="mb-5">
-                    <img src={users.avatar} alt="avatar" />
-                </Col>
-                <Col>
-                    <h4>{users.email}</h4>
-                    <h4>{users.role}</h4>
+            <h1 className="mt-3 mb-3">Hi! {users.username}</h1>
+            <hr />
+            <Row md={3}>
+                <Col className="mb-5">
+                    <img className="mb-3" src={users.avatar} alt="avatar" />
+                    <h5> Email: {users.email}</h5>
+                    <h5> Role: {users.role}</h5>
                     <Link to={`/edit-user/${users._id}`}>
                         <Button as="figure" variant="warning">Edit User</Button>
                     </Link>
@@ -54,8 +76,26 @@ const ProfilePage = () => {
                         }}>Eliminar</Button>
                     </Link>
                 </Col>
+                <Col md={6}>
+                    <h3>All my Fests</h3>
+                    <hr />
+                    {myFests.map(fest => (
+                        <FestUserCard
+                            key={fest._id}
+                            imageUrl={fest.imageUrl}
+                            title={fest.title}
+                            _id={fest._id}
+                            description={fest.description}
+                            genre={fest.genre}
+                            startDate={fest.startDate}
+                            endDate={fest.endDate}
+                            price={fest.price}
+                            onDelete={() => deleteUserFest(fest._id)} // Agregar función para eliminar el festival
+                        />
+                    ))}
+                </Col>
             </Row>
-        </Container>
+        </Container >
     )
 }
 

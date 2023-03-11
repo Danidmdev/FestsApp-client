@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { Container, Modal, Button } from "react-bootstrap"
+import { Container, Modal, Button, Row, Col } from "react-bootstrap"
 import NewFestForm from "../../components/NewFestForm/NewFestForm"
 import { AuthContext } from "../../contexts/auth.context"
 import festsServices from "../../services/fests.services"
@@ -11,7 +11,7 @@ const FestsPage = () => {
 
     const [showModal, setShowModal] = useState(false)
     const [fests, setFests] = useState([])
-    // const [festsBackup, setProductsBackup] = useState([])
+    const [festsBackup, setFestsBackup] = useState('')
     const [isLoading, setIsLoading] = useState(true)
 
 
@@ -26,20 +26,17 @@ const FestsPage = () => {
             .getAllFests()
             .then(({ data }) => {
                 setFests(data)
+                setFestsBackup(data)
                 setIsLoading(false)
             })
             .catch(err => console.log(err))
     }
 
-    // const filterFests = filter => {
-    //     if (filter === "") {
-    //         setFests(festsBackup)
+    const handleSearchBar = e => {
+        const filteredFests = festsBackup.filter(elm => elm.title.toLowerCase().includes(e.target.value.toLowerCase()))
+        setFests(filteredFests)
+    }
 
-    //     } else {
-    //         const filteredFests = festsBackup.filter(elm => elm.name.startsWith(filter))
-    //         setFests(filteredFests)
-    //     }
-    // }
 
     const fireFinalActions = () => {
         setShowModal(false)
@@ -59,7 +56,11 @@ const FestsPage = () => {
 
                         <>
                             <h1>Fest List (provisional esto no es un lab!!!!)</h1>
-                            {/* <SearchBar filterFests={filterFests} /> */}
+                            <Row>
+                                <Col md={{ span: 6 }}>
+                                    <SearchBar handleSearchBar={handleSearchBar} />
+                                </Col>
+                            </Row>
                             {user && <Button onClick={() => setShowModal(true)} variant="dark" size='sm'>Create new Fest</Button>}
                             <hr />
                             <FestsList fests={fests} />
@@ -67,7 +68,6 @@ const FestsPage = () => {
                 }
 
             </Container>
-
 
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton> <Modal.Title>New Fest</Modal.Title></Modal.Header>

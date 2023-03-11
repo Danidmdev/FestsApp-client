@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { Button, Form, Row, Col } from "react-bootstrap"
 import festsServices from './../../services/fests.services'
 import uploadServices from "../../services/upload.services"
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
+import { AuthContext } from './../../contexts/auth.context'
 
 const EditFestForm = () => {
 
@@ -24,6 +25,8 @@ const EditFestForm = () => {
 
     const navigate = useNavigate()
 
+    const { user } = useContext(AuthContext)
+
     useEffect(() => {
         console.log(festData)
     }, [festData])
@@ -41,7 +44,7 @@ const EditFestForm = () => {
         festsServices
             .getDetails(fest_id)
             .then(({ data }) => {
-                const { title, description, price, genre, startDate, endDate } = data
+                const { title, description, price, genre, startDate, endDate, } = data
                 setFestData({ title, description, price, genre, imageUrl: '', startDate, endDate })
             })
             .catch(err => console.error(err))
@@ -53,7 +56,7 @@ const EditFestForm = () => {
         festsServices
             .edit(fest_id, festData)
             .then(({ data }) => {
-                navigate('/fests')
+                navigate(`/profile/${user._id}`)
 
             })
             .catch(err => console.log(err))
@@ -85,9 +88,20 @@ const EditFestForm = () => {
                 <Form.Control type="text" name="title" value={festData.title} onChange={handleInputChange} />
             </Form.Group>
             <Row className="mb-3">
+
                 <Form.Group as={Col} controlId="genre">
                     <Form.Label>Genre</Form.Label>
-                    <Form.Control type="text" name="genre" value={festData.genre} onChange={handleInputChange} />
+                    <Form.Select name="genre" value={festData.genre} onChange={handleInputChange}>
+                        <option>Select </option>
+                        <option value="Electro">Electro</option>
+                        <option value="Reggae">Reggae</option>
+                        <option value="Alternative">Alternative</option>
+                        <option value="Rock">Rock</option>
+                        <option value="Classic">Classic</option>
+                        <option value="Mix">Mix</option>
+                        <option value="Jazz">Jazz</option>
+                        <option value="Other">Other</option>
+                    </Form.Select>
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="price">

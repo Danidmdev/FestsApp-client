@@ -1,30 +1,23 @@
 import { useState } from "react"
-import Form from 'react-bootstrap/Form';
+import { Form } from "react-bootstrap"
 
 
-const SearchBar = ({ filterFests }) => {
+const SearchBar = ({ handleSearchBar }) => {
 
-    const [filter, setFilter] = useState("")
+    const [currentText, setText] = useState()
 
-
-    const handleFilter = e => {
-        setFilter(e.target.value)
-        filterFests(e.target.value)
-
-    }
     return (
-        <>
-            <input type="text" value={filter} onChange={handleFilter} />
-            {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check checked={hasStock} onChange={handleStockChange} type="checkbox" label="Only show products in stock " />
-            </Form.Group> */}
 
-        </>
-
+        <Form className="d-flex my-4">
+            <Form.Control
+                onChange={handleSearchBar}
+                value={currentText}
+                type="search"
+                placeholder="Search your favorite Fest"
+                aria-label="Search"
+            />
+        </Form>
     )
-
 }
-
-
 
 export default SearchBar
