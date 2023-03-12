@@ -19,6 +19,7 @@ const NewFestForm = ({ fireFinalActions }) => {
         startDate: '',
         endDate: '',
 
+
     })
 
     const { emitMessage } = useContext(MessageContext)
@@ -90,7 +91,7 @@ const NewFestForm = ({ fireFinalActions }) => {
                     <Form.Control type="text" name="price" value={festData.price} onChange={handleInputChange} />
                 </Form.Group>
                 <Form.Group as={Col} controlId="image">
-                    <Form.Label>Imagen (URL)</Form.Label>
+                    <Form.Label>Image</Form.Label>
                     <Form.Control type="file" onChange={handleFileUpload} />
                 </Form.Group>
             </Row>
@@ -110,6 +111,7 @@ const NewFestForm = ({ fireFinalActions }) => {
                 <Form.Label>Descripción</Form.Label>
                 <Form.Control type="text" name="description" value={festData.description} onChange={handleInputChange} />
             </Form.Group>
+
 
             {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
 

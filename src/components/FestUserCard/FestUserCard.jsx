@@ -16,48 +16,30 @@ const FestUSerCard = ({ imageUrl, title, _id, description, genre, startDate, end
 
     return (
 
-        <Card className='mb-3 FestUserCard d-flex flex-row' >
-            <Card.Img className="mt-3 flex-column" variant="top" src={imageUrl} />
-            <Card.Body className="flex-column">
-                <div>
-                    <Card.Title>{title}</Card.Title>
-                    <Accordion>
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header>Description</Accordion.Header>
-                            <Accordion.Body>
-                                {description}
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="1">
-                            <Accordion.Header>Genre</Accordion.Header>
-                            <Accordion.Body>
-                                {genre}
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="2">
-                            <Accordion.Header>Date</Accordion.Header>
-                            <Accordion.Body>
-                                {new Date(startDate).toLocaleDateString()} | {new Date(endDate).toLocaleDateString()}
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="3">
-                            <Accordion.Header>Price</Accordion.Header>
-                            <Accordion.Body>
-                                {price} €
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                </div>
-                <div className="d-flex mt-1 flex-column align-self-center" >
-                    <Link to={`/edit-fest/${_id}`}>
-                        <Button as="figure" variant="warning" className="w-100">Edit Fest</Button>
+        <Card className='mb-3 FestUserCard'>
+            <Row className='g-0'>
+                <Col xs={12} md={4} className='d-flex align-items-center justify-content-center'>
+                    <Link to={`/details/${_id}`}>
+                        <Card.Img variant='top' src={imageUrl} />
                     </Link>
-                    <Link>
-                        <Button as="figure" variant="danger" className="w-100" onClick={handleDelete}>Eliminar</Button>
-                    </Link>
-                </div>
-            </Card.Body>
-        </Card >
+                </Col>
+                <Col xs={12} md={8}>
+                    <Card.Body className='d-flex flex-column align-items-center justify-content-center'>
+                        <Card.Title>{title}</Card.Title>
+                        <div className='mt-3'>
+                            <Link to={`/edit-fest/${_id}`}>
+                                <Button variant='warning' className='w-100'>Edit Fest</Button>
+                            </Link>
+                        </div>
+                        <div className='mt-3'>
+                            <Link>
+                                <Button variant='danger' className='w-100' onClick={handleDelete}>Eliminar</Button>
+                            </Link>
+                        </div>
+                    </Card.Body>
+                </Col>
+            </Row>
+        </Card>
     )
 }
 

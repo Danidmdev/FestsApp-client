@@ -43,6 +43,14 @@ class FestServices {
         return this.api.delete(`/delete/${fest_id}`)
     }
 
+    joinFest(fest_id, festData) {
+        return this.api.put(`/join/${fest_id}`, festData)
+    }
+
+    leaveFest(fest_id, festData) {
+        return this.api.put(`/leave/${fest_id}`, festData)
+    }
+
 }
 
 const festsServices = new FestServices()

@@ -43,7 +43,7 @@ const ProfilePage = () => {
         festsServices
             .deleteFest(fest_id)
             .then(() => {
-                loadData() // Actualiza la lista de festivales después de la eliminación
+                loadData()
             })
             .catch(err => console.log(err))
     }
@@ -59,10 +59,28 @@ const ProfilePage = () => {
 
     return (
         <Container>
-            <h1 className="mt-3 mb-3">Hi! {users.username}</h1>
+            <h1 className="mt-3 mb-3">{users.username}</h1>
             <hr />
-            <Row md={3}>
-                <Col className="mb-5">
+            <Row className="g-4">
+                <Col md={6} className="mb-5">
+                    <h3>Fests Created </h3>
+                    <hr />
+                    {myFests.map(fest => (
+                        <FestUserCard
+                            key={fest._id}
+                            imageUrl={fest.imageUrl}
+                            title={fest.title}
+                            _id={fest._id}
+                            description={fest.description}
+                            genre={fest.genre}
+                            startDate={fest.startDate}
+                            endDate={fest.endDate}
+                            price={fest.price}
+                            onDelete={() => deleteUserFest(fest._id)}
+                        />
+                    ))}
+                </Col >
+                <Col md={4} className="offset-md-2 mb-5">
                     <img className="mb-3" src={users.avatar} alt="avatar" />
                     <h5> Email: {users.email}</h5>
                     <h5> Role: {users.role}</h5>
@@ -76,24 +94,7 @@ const ProfilePage = () => {
                         }}>Eliminar</Button>
                     </Link>
                 </Col>
-                <Col md={6}>
-                    <h3>All my Fests</h3>
-                    <hr />
-                    {myFests.map(fest => (
-                        <FestUserCard
-                            key={fest._id}
-                            imageUrl={fest.imageUrl}
-                            title={fest.title}
-                            _id={fest._id}
-                            description={fest.description}
-                            genre={fest.genre}
-                            startDate={fest.startDate}
-                            endDate={fest.endDate}
-                            price={fest.price}
-                            onDelete={() => deleteUserFest(fest._id)} // Agregar función para eliminar el festival
-                        />
-                    ))}
-                </Col>
+
             </Row>
         </Container >
     )

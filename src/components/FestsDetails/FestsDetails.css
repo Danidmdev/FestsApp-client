@@ -1,0 +1,16 @@
+.festImage {
+    width: 300px;
+    height: 350px;
+    border-radius: 10px;
+}
+
+.festAvatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+
+}
+
+.buttonClass {
+    display: inline-block;
+}

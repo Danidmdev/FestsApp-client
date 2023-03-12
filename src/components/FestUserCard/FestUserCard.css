@@ -1,11 +1,16 @@
 .FestUserCard {
     border: none;
     font-size: .9em;
-    background-color: rgb(209, 202, 237);
-
+    background-color: #f2f2f2;
+    border-radius: 50px;
 }
 
 .FestUserCard img {
-    height: 350px;
+    height: 250px;
     object-fit: scale-down;
+    border-radius: 50px;
+}
+
+.UserAvatar {
+    border-radius: 50px;
 }

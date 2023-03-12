@@ -1,12 +1,14 @@
 .FestCard {
     border: none;
-    font-size: .8em;
-    background-color: rgb(209, 202, 237);
-    width: 250px;
+    font-size: .9em;
+    background-color: #f2f2f2;
+    width: 350px;
+    border-radius: 50px;
 
 }
 
-.FestCard img {
+.FestCardImg {
     height: 300px;
     object-fit: scale-down;
+    border-radius: 75px;
 }

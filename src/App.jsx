@@ -18,19 +18,16 @@ const App = () => {
   }
 
   return (
-    <div className="App">
-      <div className='row'>
-        <div className=''>
-          <SideNavBar isOpen={isNavOpen} onToggle={handleNavbarToggle} />
-          <div className={`content-container ${isNavOpen ? "is-nav-open" : ""} ${isContentShifted ? "shifted" : ""}`}>
-            <AppRoutes />
-            <Footer />
-            <UserMessage />
-          </div>
-        </div>
+
+    <div >
+      <SideNavBar isOpen={isNavOpen} onToggle={handleNavbarToggle} />
+      <div className={`content-container ${isNavOpen ? "is-nav-open" : ""} ${isContentShifted ? "shifted" : ""}`}>
+        <AppRoutes />
+        <Footer />
+        <UserMessage />
       </div>
     </div>
-  );
+  )
 }
 
 export default App;

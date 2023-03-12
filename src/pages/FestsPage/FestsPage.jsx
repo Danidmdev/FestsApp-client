@@ -57,14 +57,15 @@ const FestsPage = () => {
                         :
 
                         <>
-                            <h1>Fest List (provisional esto no es un lab!!!!)</h1>
+                            <h1>All Fests</h1>
                             <Row>
                                 <Col md={{ span: 6 }}>
                                     <SearchBar handleSearchBar={handleSearchBar} />
                                 </Col>
                             </Row>
-                            {user && <Button onClick={() => setShowModal(true)} variant="dark" size='sm'>Create new Fest</Button>}
+                            {user && <Button onClick={() => setShowModal(true)} variant="outline-dark" size='sm'>Create new Fest</Button>}
                             <hr />
+
                             <FestsList fests={fests} />
                         </>
                 }
