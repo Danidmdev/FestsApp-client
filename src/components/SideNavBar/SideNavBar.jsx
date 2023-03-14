@@ -42,11 +42,6 @@ const SideNavBar = ({ isOpen, onToggle }) => {
                             <Nav.Link as="span">New Fest</Nav.Link>
                         </Link>
                     </li>
-                    {/* <li>
-                        <Link to="/calendar">
-                            <Nav.Link as="span">Calendar</Nav.Link>
-                        </Link>
-                    </li> */}
                     <li>
                         <Link to="/allUsers">
                             <Nav.Link as="span">All Users</Nav.Link>

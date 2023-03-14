@@ -4,27 +4,19 @@ import { Link, useParams } from "react-router-dom"
 import festsServices from "../../services/fests.services"
 import { useNavigate } from "react-router-dom"
 import { AuthContext } from '../../contexts/auth.context'
+import React from 'react'
+import ReactPlayer from 'react-player'
 import './FestsDetails.css'
 
 
 
 const FestDetails = ({ fest, loadFestData }) => {
 
-
     const { fest_id } = useParams()
 
     const navigate = useNavigate()
 
-    const { user } = useContext(AuthContext)
-
-    const deleteFest = (fest_id) => {
-        festsServices
-            .deleteFest(fest_id)
-            .then(() => {
-                navigate('/fests')
-            })
-            .catch(err => console.log(err))
-    }
+    // const { user } = useContext(AuthContext)
 
     const [festData, setFestData] = useState({
         fans: ""
@@ -43,9 +35,9 @@ const FestDetails = ({ fest, loadFestData }) => {
                 setFestData({ fans })
                 loadFestData()
             })
-
             .catch(err => console.error(err))
     }
+
     const handleJoinFest = () => {
         festsServices
             .joinFest(fest_id, festData)
@@ -57,7 +49,6 @@ const FestDetails = ({ fest, loadFestData }) => {
             .catch(err => console.log(err))
     }
 
-
     const handleLeaveFest = () => {
         festsServices
             .leaveFest(fest_id, festData)
@@ -65,7 +56,6 @@ const FestDetails = ({ fest, loadFestData }) => {
                 const { ...fans } = data
                 setFestData({ fans })
                 loadFestData()
-
             })
     }
 
@@ -99,8 +89,6 @@ const FestDetails = ({ fest, loadFestData }) => {
                         </Figure>
                     ))}
                 </Col>
-            </Row>
-            <Row>
                 <Col>
                     <div className="buttonClass">
                         <Link to="">
@@ -114,16 +102,18 @@ const FestDetails = ({ fest, loadFestData }) => {
                     </div>
                 </Col>
             </Row>
+            <Row  >
+                {fest.video && <Col >
+                    <h5 className="mb-3" >Video</h5>
+                    <ReactPlayer url={fest.video} width="60%" height="120%" />
+                </Col>}
+                {fest.website && <Col >
+                    <Link to={`${fest.website}`} target="_blank">
+                        <p>WEB OFICIAL</p>
+                    </Link>
+                </Col>}
 
-            <Link to="/fests">
-                <Button as="figure" variant="outline-dark">Back to All Fests</Button>
-            </Link>
-            <Link to={`/edit-fest/${fest_id}`}>
-                {user._id === fest.owner && <Button as="figure" variant="warning">Edit Fest</Button>}
-            </Link>
-            <Link>
-                {user._id === fest.owner && <Button as="figure" variant="danger" onClick={() => deleteFest(fest_id)}>Eliminar</Button>}
-            </Link>
+            </Row>
 
         </Container >
     )

@@ -12,7 +12,6 @@ const UsersCard = ({ avatar, username, email, role, _id }) => {
             <Card.Body>
                 <Card.Title>{username}</Card.Title>
                 <Card.Text>{email}</Card.Text>
-                <Card.Text>{role}</Card.Text>
             </Card.Body>
         </Card >
     )

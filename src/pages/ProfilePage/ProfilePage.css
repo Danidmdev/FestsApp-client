@@ -1,0 +1,15 @@
+.buttonClass {
+    display: inline-block;
+}
+
+.Avatar {
+    height: 300px;
+    border-radius: 20%;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+.festJoinedImg {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+}

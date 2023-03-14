@@ -27,6 +27,7 @@ const UsersPage = () => {
     }
 
     const handleSearchBar = e => {
+        // TODO
         const filteredUsers = usersBackup.filter(elm => elm.username.toLowerCase().includes(e.target.value.toLowerCase()))
         setUsers(filteredUsers)
     }

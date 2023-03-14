@@ -5,6 +5,7 @@ import uploadServices from "../../services/upload.services"
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { AuthContext } from './../../contexts/auth.context'
+import * as Constants from './../../consts'
 
 const EditFestForm = () => {
 
@@ -16,6 +17,8 @@ const EditFestForm = () => {
         imageUrl: '',
         startDate: '',
         endDate: '',
+        video: '',
+        website: ''
 
     })
 
@@ -37,15 +40,15 @@ const EditFestForm = () => {
     }
 
     useEffect(() => {
-        details(fest_id)
+        getFestDetails(fest_id)
     }, [])
 
-    const details = (fest_id) => {
+    const getFestDetails = (fest_id) => {
         festsServices
             .getDetails(fest_id)
             .then(({ data }) => {
-                const { title, description, price, genre, startDate, endDate, } = data
-                setFestData({ title, description, price, genre, imageUrl: '', startDate, endDate })
+                const { title, description, price, genre, startDate, endDate, video, website } = data
+                setFestData({ title, description, price, genre, imageUrl: '', startDate, endDate, video, website })
             })
             .catch(err => console.error(err))
     }
@@ -93,14 +96,9 @@ const EditFestForm = () => {
                     <Form.Label>Genre</Form.Label>
                     <Form.Select name="genre" value={festData.genre} onChange={handleInputChange}>
                         <option>Select </option>
-                        <option value="Electro">Electro</option>
-                        <option value="Reggae">Reggae</option>
-                        <option value="Alternative">Alternative</option>
-                        <option value="Rock">Rock</option>
-                        <option value="Classic">Classic</option>
-                        <option value="Mix">Mix</option>
-                        <option value="Jazz">Jazz</option>
-                        <option value="Other">Other</option>
+                        {
+                            Constants.FETIVAL_GENERES.map(elm => <option key={elm} value={elm}>{elm}</option>)
+                        }
                     </Form.Select>
                 </Form.Group>
 
@@ -124,6 +122,17 @@ const EditFestForm = () => {
                 <Form.Group as={Col} controlId="endDate">
                     <Form.Label>End Date</Form.Label>
                     <Form.Control type="date" name="endDate" value={festData.endDate} onChange={handleInputChange} />
+                </Form.Group>
+            </Row>
+
+            <Row>
+                <Form.Group className="mb-3" controlId="video">
+                    <Form.Label>Video Url</Form.Label>
+                    <Form.Control type="text" name="video" value={festData.video} onChange={handleInputChange} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="website">
+                    <Form.Label>Website</Form.Label>
+                    <Form.Control type="text" name="website" value={festData.website} onChange={handleInputChange} />
                 </Form.Group>
             </Row>
 

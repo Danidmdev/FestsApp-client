@@ -1,18 +1,22 @@
-import { useContext, useState, useEffect } from "react"
-import { Col, Container, Row, Button } from "react-bootstrap"
+import { useContext, useState, useEffect, cloneElement } from "react"
+import { Col, Container, Row, Button, Figure } from "react-bootstrap"
 import { AuthContext } from './../../contexts/auth.context'
 import { Link, useParams } from "react-router-dom"
 import usersServices from "../../services/users.services"
 import festsServices from "../../services/fests.services"
 import { useNavigate } from "react-router-dom"
 import FestUserCard from "../../components/FestUserCard/FestUserCard"
+import './ProfilePage.css'
 
 const ProfilePage = () => {
 
-    const { logout } = useContext(AuthContext)
+    const { user, logout } = useContext(AuthContext)
 
     const [users, setUsers] = useState({})
+
     const [myFests, setMyFests] = useState([])
+
+    const [myFestsJoined, setMyFestsJoined] = useState([])
 
     const navigate = useNavigate()
 
@@ -21,9 +25,12 @@ const ProfilePage = () => {
 
     useEffect(() => {
         loadData()
-    }, [])
+    }, [user_id])
 
     const loadData = () => {
+
+        // TODO
+
         usersServices
             .getProfile(user_id)
             .then(({ data }) => {
@@ -35,6 +42,14 @@ const ProfilePage = () => {
             .getByOwner(user_id)
             .then(({ data }) => {
                 setMyFests(data)
+
+            })
+            .catch(err => console.log(err))
+
+        festsServices
+            .getJoniedFest(user_id)
+            .then(({ data }) => {
+                setMyFestsJoined(data)
             })
             .catch(err => console.log(err))
     }
@@ -57,6 +72,7 @@ const ProfilePage = () => {
             .catch(err => console.log(err))
     }
 
+
     return (
         <Container>
             <h1 className="mt-3 mb-3">{users.username}</h1>
@@ -71,30 +87,42 @@ const ProfilePage = () => {
                             imageUrl={fest.imageUrl}
                             title={fest.title}
                             _id={fest._id}
-                            description={fest.description}
-                            genre={fest.genre}
-                            startDate={fest.startDate}
-                            endDate={fest.endDate}
-                            price={fest.price}
+                            owner={fest.owner}
                             onDelete={() => deleteUserFest(fest._id)}
                         />
                     ))}
                 </Col >
                 <Col md={4} className="offset-md-2 mb-5">
-                    <img className="mb-3" src={users.avatar} alt="avatar" />
+                    <img className=" Avatar mb-3" src={users.avatar} alt="avatar" />
                     <h5> Email: {users.email}</h5>
                     <h5> Role: {users.role}</h5>
-                    <Link to={`/edit-user/${users._id}`}>
-                        <Button as="figure" variant="warning">Edit User</Button>
-                    </Link>
-                    <Link>
-                        <Button as="figure" variant="danger" onClick={() => {
-                            deleteUser(user_id)
-                            logout(user_id)
-                        }}>Eliminar</Button>
-                    </Link>
+                    {user._id === user_id && <Col>
+                        <div className="buttonClass" >
+                            <Link to={`/edit-user/${users._id}`}>
+                                {<Button as="figure" variant="outline-warning">Edit User</Button>}
+                            </Link>
+                        </div>
+                        <div className="buttonClass">
+                            <Link>
+                                < Button as="figure" variant="outline-danger" onClick={() => {
+                                    deleteUser(user_id)
+                                    logout(user_id)
+                                }}>Eliminar</Button>
+                            </Link>
+                        </div>
+                    </Col>}
+                    <Col className="mt-2">
+                        <h5>Fests Joined</h5>
+                        <hr />
+                        {myFestsJoined.map((elm, idx) => (
+                            < Figure key={idx} >
+                                <Link to={`/details/${elm._id}`}>
+                                    <Figure.Image className="festJoinedImg" src={elm.imageUrl} alt="fest image" />
+                                </Link>
+                            </Figure>
+                        ))}
+                    </Col>
                 </Col>
-
             </Row>
         </Container >
     )

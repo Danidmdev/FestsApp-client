@@ -23,12 +23,21 @@ class FestServices {
         return this.api.get('/getAllFests')
     }
 
+    getFilteredFests(query) {
+        // TODO
+    }
+
     getDetails(fest_id) {
         return this.api.get(`/details/${fest_id}`)
     }
 
     getByOwner(owner_id) {
         return this.api.get(`/getFestByOwner/${owner_id}`)
+    }
+
+    getJoniedFest(fans_id) {
+
+        return this.api.get(`/getFestJoinedById/${fans_id}`)
     }
 
     newFest(festData) {

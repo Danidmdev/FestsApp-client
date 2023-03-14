@@ -9,8 +9,13 @@
     height: 250px;
     object-fit: scale-down;
     border-radius: 50px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.7);
 }
 
 .UserAvatar {
     border-radius: 50px;
+}
+
+.buttonClass {
+    display: inline-block;
 }

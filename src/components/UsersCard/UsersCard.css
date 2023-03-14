@@ -10,5 +10,6 @@
 .UsersCard img {
     height: 250px;
     object-fit: scale-down;
-    border-radius: 100%;
+    border-radius: 40%;
+
 }

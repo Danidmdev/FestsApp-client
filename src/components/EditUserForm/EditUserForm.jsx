@@ -2,9 +2,10 @@ import { useState, useContext, useEffect } from "react"
 import { Form, Button, Col, Row, Container } from "react-bootstrap"
 import { useNavigate, useParams } from 'react-router-dom'
 import uploadServices from "../../services/upload.services"
-// import { MessageContext } from "../../contexts/message.context"
-// import FormError from "../FormError/FormError"
+import { MessageContext } from "../../contexts/message.context"
 import usersServices from "../../services/users.services"
+import { AuthContext } from "../../contexts/auth.context"
+
 
 const EditUserForm = () => {
 
@@ -14,20 +15,17 @@ const EditUserForm = () => {
         avatar: ''
     })
 
+    const { refreshToken } = useContext(AuthContext)
+
     const [loadingImage, setLoadingImage] = useState(false)
 
-    // const { emitMessage } = useContext(MessageContext)
+    const { emitMessage } = useContext(MessageContext)
 
     const navigate = useNavigate()
 
     const { user_id } = useParams()
 
-    // const [errors, setErrors] = useState([])
 
-
-    useEffect(() => {
-
-    }, [usersData])
 
     const handleInputChange = e => {
         const { value, name } = e.target
@@ -44,6 +42,7 @@ const EditUserForm = () => {
             .then(({ data }) => {
                 const { username, email } = data
                 setUsersData({ username, email, avatar: '' })
+
             })
             .catch(err => console.error(err))
     }
@@ -55,7 +54,8 @@ const EditUserForm = () => {
             .editProfile(user_id, usersData)
             .then(({ data }) => {
                 navigate(`/profile/${user_id}`)
-
+                emitMessage('User edited')
+                refreshToken()
             })
             .catch(err => console.log(err))
     }
@@ -101,7 +101,6 @@ const EditUserForm = () => {
                     <Form.Control type="file" onChange={handleFileUpload} />
                 </Form.Group>
             </Row>
-            {/* {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>} */}
 
             <div className="d-grid mt-4">
                 <Button variant="dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Loading Image' : 'Edit'}</Button>

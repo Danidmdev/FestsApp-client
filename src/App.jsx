@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 import Footer from './components/Footer/Footer'
-import Navigation from './components/Navigation/Navigation'
 import SideNavBar from './components/SideNavBar/SideNavBar';
 import UserMessage from './components/UserMessage/UserMessage';
 import AppRoutes from './routes/AppRoutes'

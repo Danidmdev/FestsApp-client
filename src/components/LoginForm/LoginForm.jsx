@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import { MessageContext } from "../../contexts/message.context"
 import FormError from "../FormError/FormError"
 
+import * as Constants from './../../consts'
+
 
 const LoginForm = () => {
 
@@ -34,7 +36,7 @@ const LoginForm = () => {
             .then(({ data }) => {
                 localStorage.setItem('authToken', data.authToken)
                 authenticateUser()
-                emitMessage('Welcome back!!')
+                emitMessage(Constants.LOGGED_IN_MSG)
                 navigate('/fests')
             })
             .catch(err => {

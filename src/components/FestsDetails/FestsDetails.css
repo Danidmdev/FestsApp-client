@@ -14,3 +14,7 @@
 .buttonClass {
     display: inline-block;
 }
+
+.react-player {
+    width: 60%;
+}

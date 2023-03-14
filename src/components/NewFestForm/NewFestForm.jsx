@@ -5,6 +5,7 @@ import uploadServices from "../../services/upload.services";
 import FormError from "../FormError/FormError";
 import festsServices from './../../services/fests.services'
 
+import * as Constants from './../../consts'
 
 
 
@@ -18,6 +19,8 @@ const NewFestForm = ({ fireFinalActions }) => {
         imageUrl: '',
         startDate: '',
         endDate: '',
+        video: '',
+        website: '',
 
 
     })
@@ -76,14 +79,9 @@ const NewFestForm = ({ fireFinalActions }) => {
                     <Form.Label>Genre</Form.Label>
                     <Form.Select name="genre" value={festData.genre} onChange={handleInputChange}>
                         <option>Select </option>
-                        <option value="Electro">Electro</option>
-                        <option value="Reggae">Reggae</option>
-                        <option value="Alternative">Alternative</option>
-                        <option value="Rock">Rock</option>
-                        <option value="Classic">Classic</option>
-                        <option value="Mix">Mix</option>
-                        <option value="Jazz">Jazz</option>
-                        <option value="Other">Other</option>
+                        {
+                            Constants.FETIVAL_GENERES.map(elm => <option key={elm} value={elm}>{elm}</option>)
+                        }
                     </Form.Select>
                 </Form.Group>
                 <Form.Group as={Col} controlId="price">
@@ -106,12 +104,21 @@ const NewFestForm = ({ fireFinalActions }) => {
                     <Form.Control type="date" name="endDate" value={festData.endDate} onChange={handleInputChange} />
                 </Form.Group>
             </Row>
+            <Row>
+                <Form.Group as={Col} className="mt-3" controlId="video">
+                    <Form.Label>Video Url</Form.Label>
+                    <Form.Control type="text" name="video" value={festData.video} onChange={handleInputChange} />
+                </Form.Group>
+                <Form.Group as={Col} className="mt-3" controlId="website">
+                    <Form.Label>Website</Form.Label>
+                    <Form.Control type="text" name="website" value={festData.website} onChange={handleInputChange} />
+                </Form.Group>
+            </Row>
 
             <Form.Group className="mb-3" controlId="description">
                 <Form.Label>Descripción</Form.Label>
                 <Form.Control type="text" name="description" value={festData.description} onChange={handleInputChange} />
             </Form.Group>
-
 
             {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
 
