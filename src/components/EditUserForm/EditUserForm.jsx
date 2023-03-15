@@ -5,7 +5,7 @@ import uploadServices from "../../services/upload.services"
 import { MessageContext } from "../../contexts/message.context"
 import usersServices from "../../services/users.services"
 import { AuthContext } from "../../contexts/auth.context"
-
+import * as Constants from './../../consts'
 
 const EditUserForm = () => {
 
@@ -54,7 +54,7 @@ const EditUserForm = () => {
             .editProfile(user_id, usersData)
             .then(({ data }) => {
                 navigate(`/profile/${user_id}`)
-                emitMessage('User edited')
+                emitMessage(Constants.EDIT_USER_MSG)
                 refreshToken()
             })
             .catch(err => console.log(err))

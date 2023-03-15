@@ -28,12 +28,12 @@ const FestUSerCard = ({ imageUrl, title, _id, owner, onDelete }) => {
                     <Col>
                         <div className='mt-3 buttonClass'>
                             <Link to={`/edit-fest/${_id}`}>
-                                {user._id === owner && <Button variant='outline-warning' className='w-100'>Edit Fest</Button>}
+                                {(user._id === owner || user.role === 'ADMIN') && <Button variant='outline-warning' className='w-100'>Edit Fest</Button>}
                             </Link>
                         </div>
                         <div className='mt-3 buttonClass'>
                             <Link>
-                                {user._id === owner && <Button variant='outline-danger' className='w-100' onClick={handleDelete}>Eliminar</Button>}
+                                {(user._id === owner || user.role === 'ADMIN') && <Button variant='outline-danger' className='w-100' onClick={handleDelete}>Eliminar</Button>}
                             </Link>
                         </div>
                     </Col>

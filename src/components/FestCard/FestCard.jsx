@@ -20,11 +20,11 @@ const FestCard = ({ imageUrl, title, _id, startDate, endDate, price }) => {
     return (
         <>
             <>
-                <Card className='mb-3 FestCard'>
+                <Card className='m-3 FestCard'>
                     <Link to={`/details/${_id}`}>
                         <Card.Img className="FestCardImg" variant="top" src={imageUrl} />
                     </Link>
-                    <Card.Body>
+                    <Card.Body className="mb-3">
                         <Card.Title>{title}</Card.Title>
                         <Accordion className="custom-accordion">
                             <Accordion.Item eventKey="0">

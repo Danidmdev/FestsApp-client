@@ -96,7 +96,7 @@ const ProfilePage = () => {
                     <img className=" Avatar mb-3" src={users.avatar} alt="avatar" />
                     <h5> Email: {users.email}</h5>
                     <h5> Role: {users.role}</h5>
-                    {user._id === user_id && <Col>
+                    {(user._id === user_id || user.role === 'ADMIN') && <Col>
                         <div className="buttonClass" >
                             <Link to={`/edit-user/${users._id}`}>
                                 {<Button as="figure" variant="outline-warning">Edit User</Button>}

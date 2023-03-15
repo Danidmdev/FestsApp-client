@@ -3,10 +3,11 @@ import { Container, Button, Row, Col, Figure } from "react-bootstrap"
 import { Link, useParams } from "react-router-dom"
 import festsServices from "../../services/fests.services"
 import { useNavigate } from "react-router-dom"
-import { AuthContext } from '../../contexts/auth.context'
 import React from 'react'
 import ReactPlayer from 'react-player'
+import { MessageContext } from "../../contexts/message.context"
 import './FestsDetails.css'
+import * as Constants from './../../consts'
 
 
 
@@ -16,7 +17,9 @@ const FestDetails = ({ fest, loadFestData }) => {
 
     const navigate = useNavigate()
 
-    // const { user } = useContext(AuthContext)
+    const [isMuted, setIsMuted] = useState(true);
+
+    const { emitMessage } = useContext(MessageContext)
 
     const [festData, setFestData] = useState({
         fans: ""
@@ -45,6 +48,7 @@ const FestDetails = ({ fest, loadFestData }) => {
                 const { fans } = data
                 setFestData({ fans })
                 loadFestData()
+                emitMessage(Constants.JOIN_FEST_MSG)
             })
             .catch(err => console.log(err))
     }
@@ -56,6 +60,7 @@ const FestDetails = ({ fest, loadFestData }) => {
                 const { ...fans } = data
                 setFestData({ fans })
                 loadFestData()
+                emitMessage(Constants.LEAVE_FEST_MSG)
             })
     }
 
@@ -66,17 +71,35 @@ const FestDetails = ({ fest, loadFestData }) => {
             <h1 className="mb-4"> {fest.title} details</h1>
             <hr />
             <Row className="">
-                <Col className="mb-5">
+                <Col className="mb-2">
                     <Figure >
                         <Figure.Image className="festImage" src={fest.imageUrl} alt="fest image" />
                     </Figure>
+                    <Col>
+                        <div className="buttonClass">
+                            <Link to="">
+                                <Button onClick={handleLeaveFest} as="span" variant="outline-dark"> Leave</Button>
+                            </Link>
+                        </div>
+                        <div className="buttonClass">
+                            <Link to="">
+                                <Button onClick={handleJoinFest} as="span" variant="outline-dark"> Join</Button>
+                            </Link>
+                        </div>
+                    </Col>
                 </Col>
-                <Col>
-                    <h4>{new Date(fest.startDate).toLocaleDateString()} | {new Date(fest.endDate).toLocaleDateString()}</h4>
-                    <h5>Genre: {fest.genre}</h5>
-                    <h5>Price: {fest.price} €</h5>
-                    <p>{fest.description}</p>
-                </Col>
+                {fest.video && <Col >
+                    <ReactPlayer
+                        url={fest.video}
+                        playing
+                        muted={isMuted}
+                        width="100%" height="85%" />
+                    <Button variant="outline-white" onClick={() => {
+                        setIsMuted(!isMuted)
+                    }}>
+                        {isMuted ? '🔇' : '🔊'}
+                    </Button>
+                </Col>}
             </Row >
             <Row>
                 <Col >
@@ -89,30 +112,21 @@ const FestDetails = ({ fest, loadFestData }) => {
                         </Figure>
                     ))}
                 </Col>
-                <Col>
-                    <div className="buttonClass">
-                        <Link to="">
-                            <Button onClick={handleLeaveFest} as="span" variant="outline-dark"> Leave</Button>
-                        </Link>
-                    </div>
-                    <div className="buttonClass">
-                        <Link to="">
-                            <Button onClick={handleJoinFest} as="span" variant="outline-dark"> Join</Button>
-                        </Link>
-                    </div>
-                </Col>
+
             </Row>
             <Row  >
-                {fest.video && <Col >
-                    <h5 className="mb-3" >Video</h5>
-                    <ReactPlayer url={fest.video} width="60%" height="120%" />
-                </Col>}
+                <Col>
+                    <h5>  🗓 {new Date(fest.startDate).toLocaleDateString()} | {new Date(fest.endDate).toLocaleDateString()}</h5>
+                    <h5> 🎶  {fest.genre}</h5>
+                    <h5> 💸 {fest.price} €</h5>
+                    <p>{fest.description}</p>
+                </Col>
                 {fest.website && <Col >
                     <Link to={`${fest.website}`} target="_blank">
-                        <p>WEB OFICIAL</p>
+                        <h5>WEB OFICIAL </h5>
+                        <p className="Emoji"> ➡️💻 </p>
                     </Link>
                 </Col>}
-
             </Row>
 
         </Container >

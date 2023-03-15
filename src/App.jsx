@@ -22,7 +22,7 @@ const App = () => {
       <SideNavBar isOpen={isNavOpen} onToggle={handleNavbarToggle} />
       <div className={`content-container ${isNavOpen ? "is-nav-open" : ""} ${isContentShifted ? "shifted" : ""}`}>
         <AppRoutes />
-        <Footer />
+        {/* <Footer /> */}
         <UserMessage />
       </div>
     </div>

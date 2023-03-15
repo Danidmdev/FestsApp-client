@@ -5,6 +5,7 @@ import uploadServices from "../../services/upload.services"
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { AuthContext } from './../../contexts/auth.context'
+import { MessageContext } from "../../contexts/message.context"
 import * as Constants from './../../consts'
 
 const EditFestForm = () => {
@@ -27,6 +28,8 @@ const EditFestForm = () => {
     const { fest_id } = useParams()
 
     const navigate = useNavigate()
+
+    const { emitMessage } = useContext(MessageContext)
 
     const { user } = useContext(AuthContext)
 
@@ -60,6 +63,7 @@ const EditFestForm = () => {
             .edit(fest_id, festData)
             .then(({ data }) => {
                 navigate(`/profile/${user._id}`)
+                emitMessage(Constants.EDIT_FEST_MSG)
 
             })
             .catch(err => console.log(err))

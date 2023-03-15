@@ -36,7 +36,7 @@ const FestDetailsPage = () => {
                 <FestDetails fest={fest} loadFestData={loadFestData} />
             </section>
             <section className="Comments">
-                < CommentsSection />
+                < CommentsSection fest={fest} loadFestData={loadFestData} />
             </section>
 
 

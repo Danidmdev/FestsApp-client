@@ -2,6 +2,8 @@
     width: 300px;
     height: 350px;
     border-radius: 10px;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
 }
 
 .festAvatar {
@@ -13,8 +15,17 @@
 
 .buttonClass {
     display: inline-block;
+    margin-top: 10px;
 }
 
 .react-player {
     width: 60%;
+}
+
+.Emoji {
+    font-size: 4em;
+}
+
+.festImage:hover {
+    transform: scale(1.2);
 }

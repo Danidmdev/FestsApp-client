@@ -22,6 +22,19 @@ class CommentsService {
     getCommentByFest(fest_id) {
         return this.api.get(`/getCommentByFest/${fest_id}`)
     }
+
+    getNewComment(fest_id, commentData) {
+        return this.api.post(`/newComment/${fest_id}`, commentData)
+    }
+
+    editComment(comment_id, commentData) {
+        return this.api.put(`/edit-comment/${comment_id}`, commentData)
+    }
+
+    deleteComment(comment_id) {
+        return this.api.delete(`/delete-comment/${comment_id}`)
+    }
+
 }
 
 
