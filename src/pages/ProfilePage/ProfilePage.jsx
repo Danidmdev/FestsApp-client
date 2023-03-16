@@ -78,7 +78,7 @@ const ProfilePage = () => {
             <h1 className="mt-3 mb-3">{users.username}</h1>
             <hr />
             <Row className="g-4">
-                <Col md={6} className="mb-5">
+                <Col className="mb-5">
                     <h3>Fests Created </h3>
                     <hr />
                     {myFests.map(fest => (

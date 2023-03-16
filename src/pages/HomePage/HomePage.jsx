@@ -9,7 +9,7 @@ const HomePage = () => {
 
             <Row>
 
-                <Col md={{ span: 8, offset: 2 }}>
+                <Col >
 
                     <h1>Fest App</h1>
                     <hr />

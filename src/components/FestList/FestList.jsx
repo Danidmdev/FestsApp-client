@@ -8,7 +8,7 @@ const FestsList = ({ fests }) => {
             {
                 fests.map(elm => {
                     return (
-                        <Col md={{ span: 4 }} key={elm._id}>
+                        <Col xs={12} sm={12} md={6} lg={6} xl={4} key={elm._id}>
                             <FestCard {...elm} />
                         </Col>
                     )

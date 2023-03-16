@@ -20,7 +20,7 @@ const FestCard = ({ imageUrl, title, _id, startDate, endDate, price }) => {
     return (
         <>
             <>
-                <Card className='m-3 FestCard'>
+                <Card className=' FestCard col mb-4'>
                     <Link to={`/details/${_id}`}>
                         <Card.Img className="FestCardImg" variant="top" src={imageUrl} />
                     </Link>

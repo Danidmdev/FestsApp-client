@@ -31,8 +31,8 @@ class CommentsService {
         return this.api.put(`/edit-comment/${comment_id}`, commentData)
     }
 
-    deleteComment(comment_id) {
-        return this.api.delete(`/delete-comment/${comment_id}`)
+    deleteComment(comment_id, fest_id) {
+        return this.api.delete(`/delete-comment/${comment_id}/${fest_id}`)
     }
 
 }

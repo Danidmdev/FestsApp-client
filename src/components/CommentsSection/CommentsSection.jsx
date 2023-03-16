@@ -1,8 +1,9 @@
 import { useEffect, useState, useContext } from "react"
 import { Button, Form, FormGroup, FormControl, Figure, FloatingLabel } from "react-bootstrap"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import commentsServices from './../../services/comments.services'
 import { MessageContext } from "../../contexts/message.context"
+import { AuthContext } from './../../contexts/auth.context'
 
 import './CommentsSection.css'
 
@@ -10,11 +11,14 @@ import './CommentsSection.css'
 
 const CommentsSection = ({ fest, loadFestData }) => {
 
+    const { user } = useContext(AuthContext)
+
     const { emitMessage } = useContext(MessageContext)
 
     const { fest_id } = useParams()
     const [comments, setComments] = useState(null)
 
+    console.log(user._id)
 
     const [commentData, setCommentData] = useState({
         text: '',
@@ -34,6 +38,7 @@ const CommentsSection = ({ fest, loadFestData }) => {
                 loadFestData()
             })
             .catch(err => console.error(err))
+
     }
 
 
@@ -60,7 +65,7 @@ const CommentsSection = ({ fest, loadFestData }) => {
     const deleleteComment = (comment_id) => {
 
         commentsServices
-            .deleteComment(comment_id)
+            .deleteComment(comment_id, fest_id)
             .then(() => {
                 loadData()
                 emitMessage('Comment deleted')
@@ -99,18 +104,15 @@ const CommentsSection = ({ fest, loadFestData }) => {
                         <div key={index} className="my-4">
                             <div className="d-flex justify-content-between">
                                 <div className="d-flex align-items-center">
-                                    <Figure.Image className="AvatarComment me-2 " variant="top" src={elm.owner.avatar} />
+                                    <Link to={`/profile/${elm.owner._id}`}>
+                                        <Figure.Image className="AvatarComment  " variant="top" src={elm.owner.avatar} />
+                                    </Link>
                                     <h6 className="fw-bold mb-2">{elm.owner.username}</h6>
-                                    {/* <p className="Comment mb-2"> {elm.text}</p> */}
                                 </div>
 
-                                <div>
-                                    <Button size="sm" variant="outline-danger" onClick={() => { deleleteComment(elm._id) }}>Delete</Button>
-                                    {/* <small>
-                                        {new Date(elm.createdAt).toLocaleDateString()} |
-                                        {new Date(elm.createdAt).toLocaleTimeString()}
-                                    </small> */}
-                                </div>
+                                {(user._id === elm.owner._id || user.role === 'ADMIN') && <div>
+                                    <Button className="mt-1" size="sm" variant="outline-danger" onClick={() => { deleleteComment(elm._id) }}>Delete</Button>
+                                </div>}
                             </div >
                             <div className="d-flex justify-content-between w-100 border mt-1 rounded rounded-start rounded-bottom">
                                 <p className="Comment m-2 ">{elm.text}</p>
