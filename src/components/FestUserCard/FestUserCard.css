@@ -1,23 +1,87 @@
 .FestUserCard {
     border: none;
     font-size: .9em;
-    background-color: #f2f2f2;
     border-radius: 50px;
-    width: 80%;
-    height: 25%;
 }
 
-.FestUserCard img {
+.FestUserCardImg {
     height: 250px;
-    object-fit: scale-down;
     border-radius: 50px;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.7);
 }
 
-.UserAvatar {
-    border-radius: 50px;
-}
 
 .buttonClass {
     display: inline-block;
+}
+
+@media only screen and (max-width: 768px) {
+    .FestUserCardImg {
+        height: 130px;
+        width: 130px;
+    }
+
+    .FestUserCard {
+        width: 170px;
+    }
+}
+
+@media only screen and (min-width: 575px) and (max-width: 768px) {
+    .FestUserCardImg {
+        height: 130px;
+        width: 130px;
+    }
+
+    .FestUserCard {
+        width: 170px;
+
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .FestUserCardImg {
+        height: 160px;
+        width: 160px;
+    }
+
+    .FestUserCard {
+        width: 190px;
+
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .FestUserCardImg {
+        height: 180px;
+        width: 180px;
+    }
+
+    .FestUserCard {
+        width: 220px;
+
+    }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1300px) {
+    .FestUserCardImg {
+        height: 195px;
+        width: 195px;
+    }
+
+    .FestUserCard {
+        width: 225px;
+
+    }
+}
+
+@media only screen and (min-width: 1300px) {
+    .FestUserCardImg {
+        height: 210px;
+        width: 210px;
+    }
+
+    .FestUserCard {
+        width: 250px;
+
+    }
 }

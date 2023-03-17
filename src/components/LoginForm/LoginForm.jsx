@@ -62,7 +62,7 @@ const LoginForm = () => {
             {error.length > 0 && <FormError><p>{error}</p></FormError>}
 
             <div className="d-grid">
-                <Button variant="dark" type="submit">Acceder</Button>
+                <Button variant="outline-dark" type="submit">Acceder</Button>
             </div>
 
         </Form>

@@ -11,5 +11,5 @@ export const JOIN_FEST_MSG = 'You have joined! 👌'
 export const LEAVE_FEST_MSG = 'You have leaved! 👋'
 
 
-// TODO
+
 

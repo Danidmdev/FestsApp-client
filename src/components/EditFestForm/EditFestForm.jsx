@@ -34,7 +34,6 @@ const EditFestForm = () => {
     const { user } = useContext(AuthContext)
 
     useEffect(() => {
-        console.log(festData)
     }, [festData])
 
     const handleInputChange = e => {
@@ -145,7 +144,7 @@ const EditFestForm = () => {
                 <Form.Control type="text" name="description" value={festData.description} onChange={handleInputChange} />
             </Form.Group>
 
-            <Button variant="dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Loading Image' : 'Edit Fest'}</Button>
+            <Button variant="outline-dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Loading Image' : 'Edit Fest'}</Button>
         </Form>
     );
 }

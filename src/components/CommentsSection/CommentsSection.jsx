@@ -18,8 +18,6 @@ const CommentsSection = ({ fest, loadFestData }) => {
     const { fest_id } = useParams()
     const [comments, setComments] = useState(null)
 
-    console.log(user._id)
-
     const [commentData, setCommentData] = useState({
         text: '',
     })
@@ -105,7 +103,7 @@ const CommentsSection = ({ fest, loadFestData }) => {
                             <div className="d-flex justify-content-between">
                                 <div className="d-flex align-items-center">
                                     <Link to={`/profile/${elm.owner._id}`}>
-                                        <Figure.Image className="AvatarComment  " variant="top" src={elm.owner.avatar} />
+                                        <Figure.Image className="AvatarComment" variant="top" src={elm.owner.avatar} />
                                     </Link>
                                     <h6 className="fw-bold mb-2">{elm.owner.username}</h6>
                                 </div>

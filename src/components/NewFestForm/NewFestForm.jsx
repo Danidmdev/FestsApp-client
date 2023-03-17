@@ -122,7 +122,7 @@ const NewFestForm = ({ fireFinalActions }) => {
 
             {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
 
-            <Button variant="dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Loading Image' : 'Create New Fest'}</Button>
+            <Button variant="outline-dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Loading Image' : 'Create New Fest'}</Button>
         </Form>
     );
 }

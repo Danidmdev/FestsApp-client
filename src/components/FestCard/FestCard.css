@@ -1,41 +1,91 @@
 .FestCard {
     border: none;
-    font-size: .9em;
-    background-color: #f2f2f2;
-    width: 80%;
-    height: 85%;
+    font-size: .8em;
     border-radius: 50px;
     margin: 50px;
+    transition: transform 0.7s ease-in-out;
+}
 
+.FestCard:hover {
+    transform: scale(1.1)
 }
 
 .FestCardImg {
-
     border-radius: 40%;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.7)
 }
+
+
 
 @media only screen and (max-width: 768px) {
     .FestCardImg {
-        height: 100px;
-        width: 100px;
+        height: 150px;
+        width: 150px;
+    }
+
+    .FestCard {
+        width: 170px;
+
+    }
+}
+
+@media only screen and (min-width: 575px) and (max-width: 768px) {
+    .FestCardImg {
+        height: 150px;
+        width: 150px;
+    }
+
+    .FestCard {
+        width: 170px;
 
     }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 992px) {
     .FestCardImg {
-        height: 150px;
+        height: 180px;
+        width: 180px;
+    }
+
+    .FestCard {
+        width: 190px;
+
     }
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
     .FestCardImg {
         height: 200px;
+        width: 200px;
+    }
+
+    .FestCard {
+        width: 220px;
+
     }
 }
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1200px) and (max-width: 1300px) {
     .FestCardImg {
-        height: 250px;
+        height: 215px;
+        width: 215px;
+    }
+
+    .FestCard {
+        width: 225px;
+
+    }
+}
+
+@media only screen and (min-width: 1300px) {
+    .FestCardImg {
+        height: 230px;
+        width: 230px;
+    }
+
+    .FestCard {
+        width: 250px;
+        height: 450px;
+
     }
 }

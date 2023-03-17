@@ -25,6 +25,12 @@ const FestDetails = ({ fest, loadFestData }) => {
         fans: ""
     })
 
+    const [showMore, setShowMore] = useState(false)
+
+    const handleShowMore = () => {
+        setShowMore(!showMore)
+    }
+
     useEffect(() => {
         loadData()
     }, [])
@@ -68,7 +74,7 @@ const FestDetails = ({ fest, loadFestData }) => {
 
         <Container>
 
-            <h1 className="mb-4"> {fest.title} details</h1>
+            <h1 className="mb-4"> {fest.title}</h1>
             <hr />
             <Row className="">
                 <Col className="mb-2">
@@ -90,6 +96,7 @@ const FestDetails = ({ fest, loadFestData }) => {
                 </Col>
                 {fest.video && <Col >
                     <ReactPlayer
+                        className="VideoYoutube"
                         url={fest.video}
                         playing
                         muted={isMuted}
@@ -119,7 +126,11 @@ const FestDetails = ({ fest, loadFestData }) => {
                     <h5>  🗓 {new Date(fest.startDate).toLocaleDateString()} | {new Date(fest.endDate).toLocaleDateString()}</h5>
                     <h5> 🎶  {fest.genre}</h5>
                     <h5> 💸 {fest.price} €</h5>
-                    <p>{fest.description}</p>
+                    <p>{showMore ? fest.description : `${fest.description.slice(0, 200)}...`}
+                        <span onClick={handleShowMore} className="mt-0">
+                            {showMore ? "⬆️" : "⬇️"}
+                        </span>
+                    </p>
                 </Col>
                 {fest.website && <Col >
                     <Link to={`${fest.website}`} target="_blank">

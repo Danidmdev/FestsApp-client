@@ -3,6 +3,7 @@ a {
   color: inherit
 }
 
+
 .content-container {
   margin-left: 20px;
   padding: 20px;
@@ -12,6 +13,8 @@ a {
   width: calc(100% - 200px);
   height: 100%;
   transition: margin-left 0.5s;
+  font-family: 'Roboto Mono', monospace;
+
 }
 
 .content-container.shifted {

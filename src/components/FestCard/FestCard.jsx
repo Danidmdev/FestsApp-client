@@ -2,7 +2,6 @@ import { useContext, useState } from "react"
 import { Card, Accordion, Modal, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import './FestCard.css'
-import { AuthContext } from "../../contexts/auth.context"
 import FestsDetails from "../../components/FestsDetails/FestsDetails"
 
 
@@ -10,7 +9,7 @@ import FestsDetails from "../../components/FestsDetails/FestsDetails"
 const FestCard = ({ imageUrl, title, _id, startDate, endDate, price }) => {
 
     const [showModal, setShowModal] = useState(false)
-    const { user } = useContext(AuthContext)
+
 
 
     const fireFinalActions = () => {
@@ -24,11 +23,11 @@ const FestCard = ({ imageUrl, title, _id, startDate, endDate, price }) => {
                     <Link to={`/details/${_id}`}>
                         <Card.Img className="FestCardImg" variant="top" src={imageUrl} />
                     </Link>
-                    <Card.Body className="mb-3">
-                        <Card.Title>{title}</Card.Title>
+                    <Card.Body className="mb-3 ">
+                        <Card.Title className="text-center">{title}</Card.Title>
                         <Accordion className="custom-accordion">
                             <Accordion.Item eventKey="0">
-                                <Accordion.Header>Event Date</Accordion.Header>
+                                <Accordion.Header className="header-accordion">Event Date</Accordion.Header>
                                 <Accordion.Body>
                                     {new Date(startDate).toLocaleDateString()} | {new Date(endDate).toLocaleDateString()}
                                 </Accordion.Body>

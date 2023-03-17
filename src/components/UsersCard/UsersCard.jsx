@@ -5,13 +5,12 @@ import './UsersCard.css'
 const UsersCard = ({ avatar, username, email, role, _id }) => {
 
     return (
-        <Card className='UsersCard mb-3' >
+        <Card className='UsersCard col mb-4' >
             <Link to={`/profile/${_id}`}>
-                <Card.Img variant="top" src={avatar} />
+                <Card.Img className='UsersCardImg' variant="top" src={avatar} />
             </Link>
-            <Card.Body>
-                <Card.Title>{username}</Card.Title>
-                <Card.Text>{email}</Card.Text>
+            <Card.Body className="mb-3 ">
+                <Card.Title className="text-center">{username}</Card.Title>
             </Card.Body>
         </Card >
     )

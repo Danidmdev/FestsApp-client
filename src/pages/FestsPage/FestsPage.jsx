@@ -6,6 +6,7 @@ import festsServices from "../../services/fests.services"
 import FestsList from "../../components/FestList/FestList"
 import Loader from "../../components/Loader/Loader"
 import SearchBar from "../../components/SearchBar/SearchBar"
+import './FestPage.css'
 
 
 
@@ -62,8 +63,10 @@ const FestsPage = () => {
                                 <Col md={{ span: 6 }}>
                                     <SearchBar handleSearchBar={handleSearchBar} />
                                 </Col>
+                                <Col className="CreateButton">
+                                    {user && <Button onClick={() => setShowModal(true)} variant="outline-dark" size='sm'>Create new Fest</Button>}
+                                </Col>
                             </Row>
-                            {user && <Button onClick={() => setShowModal(true)} variant="outline-dark" size='sm'>Create new Fest</Button>}
                             <hr />
 
                             <FestsList fests={fests} />

@@ -92,7 +92,7 @@ const SignupForm = () => {
             {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
 
             <div className="d-grid mt-4">
-                <Button variant="dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Loading Image' : 'Sign up'}</Button>
+                <Button variant="outline-dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Loading Image' : 'Sign up'}</Button>
             </div>
 
         </Form>

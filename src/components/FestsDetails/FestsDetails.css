@@ -3,19 +3,23 @@
     height: 350px;
     border-radius: 10px;
     object-fit: cover;
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.9s ease-in-out;
 }
 
 .festAvatar {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 10px;
+    margin-right: 5px;
+    transition: transform 0.5s ease-in-out;
 
 }
 
 .buttonClass {
     display: inline-block;
     margin-top: 10px;
+    margin-right: 5px;
+
 }
 
 .react-player {
@@ -28,4 +32,16 @@
 
 .festImage:hover {
     transform: scale(1.2);
+}
+
+.festAvatar:hover {
+    transform: scale(1.2);
+}
+
+.VideoYoutube {
+    transition: transform 0.8s ease-in-out;
+}
+
+.VideoYoutube:hover {
+    transform: scale(1.25);
 }

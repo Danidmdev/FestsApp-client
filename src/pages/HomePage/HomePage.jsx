@@ -1,26 +1,19 @@
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Button, Container, Figure } from 'react-bootstrap'
+import ReactPlayer from 'react-player';
 import { Link } from 'react-router-dom'
-
+import VideoHomePage from '../../components/assets/logo-video.mp4'
+import Logo from './../../components/assets/LogoFestNoBg.png'
+import './HomePage.css'
 
 const HomePage = () => {
 
     return (
         <Container className="Home">
 
-            <Row>
 
-                <Col >
-
-                    <h1>Fest App</h1>
-                    <hr />
-                    <p>Home page de prueba esto no es un lab!!!</p>
-                    <Link to="/fests">
-                        <Button variant="dark">See all fests </Button>
-                    </Link>
-
-                </Col>
-
-            </Row>
+            <Link to="/fests">
+                <ReactPlayer url={VideoHomePage} playing loop muted width="100%" height="auto" />
+            </Link>
 
         </Container>
     )
