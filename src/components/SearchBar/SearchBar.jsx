@@ -13,7 +13,7 @@ const SearchBar = ({ handleSearchBar }) => {
                 onChange={handleSearchBar}
                 value={currentText}
                 type="search"
-                placeholder="Type what are you looking for"
+                placeholder="Type what are you looking for..."
                 aria-label="Search"
             />
         </Form>
